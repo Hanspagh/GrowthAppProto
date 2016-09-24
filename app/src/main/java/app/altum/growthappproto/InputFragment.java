@@ -79,7 +79,7 @@ public class InputFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 if (saveInputData()) {
-                    //Data saved
+                    //Data saved TODO, show whether saved
                     getDialog().dismiss();
                 }
                 getDialog().dismiss();
@@ -91,9 +91,29 @@ public class InputFragment extends DialogFragment {
         String wText = editWeight.getText().toString();
         String hText = editHeight.getText().toString();
         try {
+            Child currentChild = new Child();//stub TODO
+            currentChild.setBirthday(new Date());
             Date date = simpleDateFormat.parse(editDate.getText().toString());
-            //Float weight = Float.parseFloat(wText);
-            //Integer height = Integer.parseInt(hText);
+            float weight = 0;
+            float height = 0;
+
+            if (!wText.equals(""))
+                weight = Float.parseFloat(wText);
+            if (!hText.equals(""))
+                height = Float.parseFloat(hText);
+
+            int months = monthsBetweenIgnoreDays(currentChild.getBirthday(), date);
+
+            if (weight != 0) {
+               WeightEntry wEntry = new WeightEntry(weight, months, date);
+                //TODO save this entry to child
+            }
+            if (height != 0) {
+                HeightEntry hEntry = new HeightEntry(height, months, date);
+                //TODO save this entry to child
+            }
+
+
             return true;
         } catch (ParseException e){
             return false;
@@ -101,6 +121,19 @@ public class InputFragment extends DialogFragment {
 
         //Float weight = Float.parseFloat(wText);
         //Integer height = Integer.parseInt(hText);
+    }
+
+    private static int monthsBetweenIgnoreDays(Date start, Date end) {
+        int startYear = start.getYear();
+        int endYear = end.getYear();
+        int startMonth = start.getMonth();
+        int endMonth = end.getMonth();
+        int monthValue;
+        if (startYear != endYear)
+            monthValue = startMonth + endMonth;
+        else monthValue = endMonth - startMonth;
+
+        return 12 * (endYear - startYear) + monthValue;
     }
 }
 

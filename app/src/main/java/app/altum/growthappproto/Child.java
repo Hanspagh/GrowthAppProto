@@ -1,22 +1,30 @@
 package app.altum.growthappproto;
 
-/**
- * Created by steffen on 24/09/16.
- */
+import java.util.Date;
 
 public class Child {
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
     private String name;
 
     private String height, weight;
 
+    private Date birthday;
+
     public Child() {
     }
 
-    public Child(String name, String height, String weight) {
+    public Child(String name, String height, String weight, Date birthday) {
         this.name = name;
         this.height = height;
         this.weight = weight;
+        this.birthday = birthday;
     }
 
     public String getName() {

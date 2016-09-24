@@ -3,15 +3,16 @@ package app.altum.growthappproto;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChildOverview extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class ChildOverview extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(ChildOverview.this, Add_Child.class);
+                Intent myIntent = new Intent(ChildOverview.this, AddChild.class);
                 ChildOverview.this.startActivity(myIntent);
             }
         });
@@ -52,8 +53,17 @@ public class ChildOverview extends AppCompatActivity {
             String name = intent.getStringExtra("name");
             String height = intent.getStringExtra("height");
             String weight = intent.getStringExtra("weight");
+            String birthday = intent.getStringExtra("birthday");
 
-            Child childToAdd = new Child(name, height, weight);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            Date birthdayDate = new Date();
+            try {
+                sdf.parse(birthday);
+            } catch (ParseException e){
+                e.printStackTrace();
+            }
+
+            Child childToAdd = new Child(name, height, weight, birthdayDate);
             childList.add(childToAdd);
             child_grid_Adapter.notifyDataSetChanged();
         }
@@ -64,16 +74,17 @@ public class ChildOverview extends AppCompatActivity {
     }
 
     private void prepareChildData(){
-        Child child = new Child("Steffen", "200", "110");
+        Date testDate = new Date();
+        Child child = new Child("Steffen", "200", "110", testDate);
         childList.add(child);
 
-        child = new Child("Hans", "173", "80");
+        child = new Child("Hans", "173", "80", testDate);
         childList.add(child);
 
-        child = new Child("Martin", "150", "92");
+        child = new Child("Martin", "150", "92", testDate);
         childList.add(child);
 
-        child = new Child("Emil", "194", "87");
+        child = new Child("Emil", "194", "87", testDate);
         childList.add(child);
 
         child_grid_Adapter.notifyDataSetChanged();
