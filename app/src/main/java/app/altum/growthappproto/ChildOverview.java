@@ -14,6 +14,10 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
+
 public class ChildOverview extends AppCompatActivity {
 
     private List<Child> childList = new ArrayList();
@@ -57,9 +61,25 @@ public class ChildOverview extends AppCompatActivity {
             childList.add(childToAdd);
             child_grid_Adapter.notifyDataSetChanged();
         }
-        prepareChildData();
+//        prepareChildData();
+        loadChildrenFromDB();
+        
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadChildrenFromDB();
+    }
+
+    private void loadChildrenFromDB() {
+        Realm realm = Realm.getDefaultInstance();
+        RealmQuery<Child> where = realm.where(Child.class);
+        RealmResults<Child> all = where.findAll();
+        childList.clear();
+        childList.addAll(all);
+        child_grid_Adapter.notifyDataSetChanged();
 
     }
 
