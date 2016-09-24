@@ -14,14 +14,11 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private List<Child> childList;
-    private Context context;
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-
-
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView name, height, weight;
 
         public ViewHolder(final View view) {
@@ -33,6 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Intent myIntent = new Intent(view.getContext(), GraphActivity.class);
+                    myIntent.putExtra(GraphActivity.CHILD_ID, childList.get(getAdapterPosition()).getName());
                     view.getContext().startActivity(myIntent);
                 }
             });
@@ -40,9 +38,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(Context context, List<Child> childList) {
+    public MyAdapter(List<Child> childList) {
         this.childList = childList;
-        this.context = context;
     }
 
     // Create new views (invoked by the layout manager)

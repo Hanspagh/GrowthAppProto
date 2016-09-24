@@ -1,5 +1,10 @@
 package app.altum.growthappproto;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+/**
+ * Created by steffen on 24/09/16.
+ */
 import java.util.Date;
 
 public class Child {
@@ -10,6 +15,7 @@ public class Child {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+public class Child extends RealmObject {
 
     private String name;
 

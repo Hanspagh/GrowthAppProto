@@ -3,14 +3,24 @@
     package="app.altum.growthappproto">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".Add_Child"
+            android:label="Tilføj Barn" />
+
+        <activity
+            android:name=".GraphActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".ChildOverview"
-            android:label="Child Overview"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
