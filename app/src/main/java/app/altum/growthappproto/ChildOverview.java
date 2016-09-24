@@ -1,6 +1,7 @@
 package app.altum.growthappproto;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,16 +56,14 @@ public class ChildOverview extends AppCompatActivity {
 
         if(intent.getStringExtra("name") != null){
             String name = intent.getStringExtra("name");
-            String height = intent.getStringExtra("height");
-            String weight = intent.getStringExtra("weight");
 
-            Child childToAdd = new Child(name, height, weight);
+            Child childToAdd = new Child(name, null, null);
             childList.add(childToAdd);
             child_grid_Adapter.notifyDataSetChanged();
         }
 //        prepareChildData();
         loadChildrenFromDB();
-        
+
 
     }
 
@@ -78,9 +78,14 @@ public class ChildOverview extends AppCompatActivity {
         RealmQuery<Child> where = realm.where(Child.class);
         RealmResults<Child> all = where.findAll();
         childList.clear();
+
         childList.addAll(all);
         child_grid_Adapter.notifyDataSetChanged();
 
+    }
+
+    private void addImageToChild(){
+        int ic_launcher = R.mipmap.ic_launcher;
     }
 
     private void prepareChildData(){
