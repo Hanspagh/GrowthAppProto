@@ -40,7 +40,7 @@ public class ChildOverview extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.child_grid);
 
-        child_grid_Adapter = new MyAdapter(childList);
+        child_grid_Adapter = new MyAdapter(this,childList);
         child_grid_Layout = new GridLayoutManager(this, 2);
 
         recyclerView.setAdapter(child_grid_Adapter);
@@ -58,6 +58,9 @@ public class ChildOverview extends AppCompatActivity {
             child_grid_Adapter.notifyDataSetChanged();
         }
         //prepareChildData();
+
+
+
     }
 
     private void prepareChildData(){
