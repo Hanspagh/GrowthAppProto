@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import io.realm.Realm;
+
 public class Add_Child extends AppCompatActivity {
 
     @Override
@@ -22,11 +24,12 @@ public class Add_Child extends AppCompatActivity {
                 EditText name = (EditText) findViewById(R.id.name);
                 EditText height = (EditText) findViewById(R.id.height);
                 EditText weight = (EditText) findViewById(R.id.weight);
-                Intent myIntent = new Intent(Add_Child.this, ChildOverview.class);
-                myIntent.putExtra("name", name.getText().toString());
-                myIntent.putExtra("height", height.getText().toString());
-                myIntent.putExtra("weight", weight.getText().toString());
-                Add_Child.this.startActivity(myIntent);
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+                Child child = new Child(name.getText().toString(), height.getText().toString(), weight.getText().toString());
+                realm.copyToRealm(child);
+                realm.commitTransaction();
+                Add_Child.this.finish();
             }
         });
 
