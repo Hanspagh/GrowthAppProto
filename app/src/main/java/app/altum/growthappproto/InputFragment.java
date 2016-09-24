@@ -65,7 +65,7 @@ public class InputFragment extends DialogFragment {
         String childId = getArguments().getString(CHILD_ID);
         child = Realm.getDefaultInstance().where(Child.class).equalTo("name", childId).findFirst();
         //TODO udfyld med barnets navn
-        getDialog().setTitle("Indtast data");
+        getDialog().setTitle("Indtast data for");
 
         return view;
     }
@@ -105,8 +105,6 @@ public class InputFragment extends DialogFragment {
         String wText = editWeight.getText().toString();
         String hText = editHeight.getText().toString();
         try {
-            Child currentChild = new Child();//stub TODO
-            currentChild.setBirthday(new Date());
             Date date = simpleDateFormat.parse(editDate.getText().toString());
             float weight = 0;
             float height = 0;
@@ -117,7 +115,7 @@ public class InputFragment extends DialogFragment {
             if (!hText.equals(""))
                 height = Float.parseFloat(hText);
 
-            int months = monthsBetweenIgnoreDays(currentChild.getBirthday(), date);
+            int months = monthsBetweenIgnoreDays(child.getBirthday(), date);
 
 
             Realm realm = Realm.getDefaultInstance();
