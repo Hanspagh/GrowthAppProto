@@ -16,5 +16,6 @@ public class App extends Application {
         super.onCreate();
         RealmConfiguration config = new RealmConfiguration.Builder(this).deleteRealmIfMigrationNeeded().build();
         Realm.setDefaultConfiguration(config);
+//        Realm.deleteRealm(config);
     }
 }

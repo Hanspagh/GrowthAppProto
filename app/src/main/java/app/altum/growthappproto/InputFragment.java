@@ -1,6 +1,8 @@
 package app.altum.growthappproto;
 
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -22,7 +24,12 @@ import io.realm.Realm;
  */
 
 
-public class InputFragment extends DialogFragment {
+public class InputFragment extends DialogFragment{
+
+    public interface MyDialogCloseListener
+    {
+        public void handleDialogClose(DialogInterface dialog);//or whatever args you want
+    }
 
     public static final String CHILD_ID = "child_id";
     private EditText editWeight;
@@ -44,6 +51,14 @@ public class InputFragment extends DialogFragment {
         InputFragment fragment = new InputFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog)
+    {
+        Activity activity = getActivity();
+        if(activity instanceof MyDialogCloseListener)
+            ((MyDialogCloseListener)activity).handleDialogClose(dialog);
     }
 
 
@@ -105,8 +120,6 @@ public class InputFragment extends DialogFragment {
         String wText = editWeight.getText().toString();
         String hText = editHeight.getText().toString();
         try {
-            Child currentChild = new Child();//stub TODO
-            currentChild.setBirthday(new Date());
             Date date = simpleDateFormat.parse(editDate.getText().toString());
             float weight = 0;
             float height = 0;
@@ -117,7 +130,7 @@ public class InputFragment extends DialogFragment {
             if (!hText.equals(""))
                 height = Float.parseFloat(hText);
 
-            int months = monthsBetweenIgnoreDays(currentChild.getBirthday(), date);
+            int months = monthsBetweenIgnoreDays(child.getBirthday(), date);
 
 
             Realm realm = Realm.getDefaultInstance();
