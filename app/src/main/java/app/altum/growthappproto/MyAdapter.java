@@ -19,13 +19,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, height, weight;
+        public TextView name;
 
         public ViewHolder(final View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
-            height = (TextView) view.findViewById(R.id.height);
-            weight = (TextView) view.findViewById(R.id.weight);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -56,10 +54,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Child child = childList.get(position);
         holder.name.setText(child.getName());
-        holder.height.setText(child.getHeight() + " cm");
-        holder.weight.setText(child.getWeight() + " kg");
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

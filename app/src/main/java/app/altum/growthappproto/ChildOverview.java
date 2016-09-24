@@ -1,6 +1,7 @@
 package app.altum.growthappproto;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -88,6 +89,7 @@ public class ChildOverview extends AppCompatActivity {
         RealmQuery<Child> where = realm.where(Child.class);
         RealmResults<Child> all = where.findAll();
         childList.clear();
+
         childList.addAll(all);
         child_grid_Adapter.notifyDataSetChanged();
 
