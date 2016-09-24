@@ -45,7 +45,7 @@ public class GraphActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment inputFragment = new InputFragment();
+                DialogFragment inputFragment = InputFragment.newInstance(child);
                 inputFragment.show(getSupportFragmentManager(), "dialog");
             }
         });

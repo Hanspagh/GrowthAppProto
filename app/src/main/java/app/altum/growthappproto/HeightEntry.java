@@ -2,12 +2,16 @@ package app.altum.growthappproto;
 
 import java.util.Date;
 
+import io.realm.RealmObject;
 
-public class HeightEntry {
+
+public class HeightEntry extends RealmObject {
 
     private float height;
     private int ageInMonths;
     private Date recordedDate;
+
+    public HeightEntry(){}
 
     public HeightEntry(float height, int ageInMonths, Date recordedDate){
         this.height = height;

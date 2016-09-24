@@ -11,10 +11,6 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".Add_Child"
-            android:label="Tilføj Barn" />
-
-        <activity
             android:name=".GraphActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -30,16 +26,6 @@
         </activity>
         <activity android:name=".AddChild"
                   android:label="Tilføj Barn">
-        </activity>
-        <activity android:name=".GraphActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>y
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

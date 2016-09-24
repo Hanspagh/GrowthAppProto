@@ -32,6 +32,7 @@ public class InputFragment extends DialogFragment {
     private Button cancelButton;
     private SimpleDateFormat simpleDateFormat;
     private Child child;
+
     public InputFragment() {
         // Empty constructor required for DialogFragment
     }
@@ -110,6 +111,7 @@ public class InputFragment extends DialogFragment {
             float weight = 0;
             float height = 0;
 
+            //Handle partial entries
             if (!wText.equals(""))
                 weight = Float.parseFloat(wText);
             if (!hText.equals(""))
@@ -117,23 +119,24 @@ public class InputFragment extends DialogFragment {
 
             int months = monthsBetweenIgnoreDays(currentChild.getBirthday(), date);
 
+
+            Realm realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+
             if (weight != 0) {
-               WeightEntry wEntry = new WeightEntry(weight, months, date);
-                //TODO save this entry to child
+                WeightEntry wEntry = new WeightEntry(weight, months, date);
+                child.getWeightData().add(wEntry);
             }
             if (height != 0) {
                 HeightEntry hEntry = new HeightEntry(height, months, date);
-                //TODO save this entry to child
+                child.getHeightData().add(hEntry);
             }
-
+            realm.commitTransaction();
 
             return true;
         } catch (ParseException e){
             return false;
         }
-
-        //Float weight = Float.parseFloat(wText);
-        //Integer height = Integer.parseInt(hText);
     }
 
     private static int monthsBetweenIgnoreDays(Date start, Date end) {
@@ -142,8 +145,9 @@ public class InputFragment extends DialogFragment {
         int startMonth = start.getMonth();
         int endMonth = end.getMonth();
         int monthValue;
-        if (startYear != endYear)
-            monthValue = startMonth + endMonth;
+
+        //handle same year months
+        if (startYear != endYear) monthValue = startMonth + endMonth;
         else monthValue = endMonth - startMonth;
 
         return 12 * (endYear - startYear) + monthValue;

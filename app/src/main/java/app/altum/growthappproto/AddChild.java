@@ -9,9 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+
+import io.realm.Realm;
 
 public class AddChild extends AppCompatActivity {
 
@@ -37,12 +41,19 @@ public class AddChild extends AppCompatActivity {
         addChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(AddChild.this, ChildOverview.class);
-                myIntent.putExtra("name", name.getText().toString());
-                myIntent.putExtra("height", height.getText().toString());
-                myIntent.putExtra("weight", weight.getText().toString());
-                myIntent.putExtra("birthday", birthday.getText().toString());
-                AddChild.this.startActivity(myIntent);
+                Realm realm = Realm.getDefaultInstance();
+                realm.beginTransaction();
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                Date bdayDate = new Date();
+                try {
+                    bdayDate = simpleDateFormat.parse(birthday.getText().toString());
+                } catch (ParseException e) { e.printStackTrace(); }
+                Child child = new Child(name.getText().toString(), height.getText().toString(),
+                              weight.getText().toString(), bdayDate);
+                realm.copyToRealm(child);
+                realm.commitTransaction();
+                AddChild.this.finish();
             }
         });
     }
