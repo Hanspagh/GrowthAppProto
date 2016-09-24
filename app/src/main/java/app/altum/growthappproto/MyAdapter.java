@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by steffen on 24/09/16.
- */
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
@@ -31,6 +28,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Intent myIntent = new Intent(view.getContext(), GraphActivity.class);
+                    myIntent.putExtra(GraphActivity.CHILD_ID, childList.get(getAdapterPosition()).getName());
                     view.getContext().startActivity(myIntent);
                 }
             });

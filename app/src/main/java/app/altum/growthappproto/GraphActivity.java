@@ -1,12 +1,12 @@
 package app.altum.growthappproto;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -15,30 +15,54 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 
-public class GraphActivity extends AppCompatActivity {
+import io.realm.Realm;
 
+public class GraphActivity extends AppCompatActivity {
+    public static final String CHILD_ID = "childId";
     private FloatingActionButton addButton;
     private LineChart mChart2;
     private int mFillColor = Color.argb(255, 113, 128, 219);
     private LineChart mChart;
+    private Child child;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        String childId = getIntent().getStringExtra(CHILD_ID);
+        child = Realm.getDefaultInstance().where(Child.class).equalTo("name", childId).findFirst();
+        toolbar.setTitle(child.getName());
+
+
         mChart = (LineChart) findViewById(R.id.chart);
         mChart2 = (LineChart) findViewById(R.id.chart2);
         addButton = (FloatingActionButton) findViewById(R.id.add_data_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment inputFragment = new InputFragment();
+                DialogFragment inputFragment = InputFragment.newInstance(child);
                 inputFragment.show(getSupportFragmentManager(), "dialog");
             }
         });
         addGraphs();
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public void addGraphs() {
         mChart.setBackgroundColor(Color.WHITE);

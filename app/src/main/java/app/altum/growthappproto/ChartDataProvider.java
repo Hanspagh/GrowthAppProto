@@ -16,10 +16,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HansP on 24-09-2016.
- */
-
 public class ChartDataProvider {
 
     public LineData getMaleHeightData(Context context, final LineChart mChart) {
