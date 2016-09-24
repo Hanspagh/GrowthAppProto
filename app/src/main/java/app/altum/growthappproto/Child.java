@@ -2,7 +2,6 @@ package app.altum.growthappproto;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 import java.util.Date;
 
 public class Child extends RealmObject {
@@ -12,15 +11,6 @@ public class Child extends RealmObject {
 
     private String height, weight;
     private RealmList<HeightEntry> heightData;
-
-    public RealmList<WeightEntry> getWeightData() {
-        return weightData;
-    }
-
-    public RealmList<HeightEntry> getHeightData() {
-        return heightData;
-    }
-
     private RealmList<WeightEntry> weightData;
     private Date birthday;
 
@@ -64,4 +54,13 @@ public class Child extends RealmObject {
     public void setWeight(String weight) {
         this.weight = weight;
     }
+
+    public RealmList<WeightEntry> getWeightData() {
+        return weightData;
+    }
+
+    public RealmList<HeightEntry> getHeightData() {
+        return heightData;
+    }
+
 }

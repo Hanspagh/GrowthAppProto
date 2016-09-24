@@ -1,7 +1,6 @@
 package app.altum.growthappproto;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +33,11 @@ public class AddChild extends AppCompatActivity {
         height = (EditText) findViewById(R.id.height);
         weight = (EditText) findViewById(R.id.weight);
         birthday = (EditText) findViewById(R.id.birthday);
+
+        Date currDate = new Date(); //update to current date OnCreate
+        selectedDate.setDate(currDate.getDate());
+        selectedDate.setMonth(currDate.getMonth());
+        selectedDate.setYear(currDate.getYear());
 
         setDatePicker();
 
@@ -75,8 +79,9 @@ public class AddChild extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(AddChild.this, date,
-                        selectedDate.getYear()-1900, selectedDate.getMonth(),
+                        selectedDate.getYear()+1900, selectedDate.getMonth(),
                         selectedDate.getDate()).show();
+
             }
         });
 
@@ -84,7 +89,6 @@ public class AddChild extends AppCompatActivity {
 
     private void updateLabel() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Log.d("ASDF", "DATE:" + simpleDateFormat.format(selectedDate));
         birthday.setText(simpleDateFormat.format(selectedDate));
     }
 }

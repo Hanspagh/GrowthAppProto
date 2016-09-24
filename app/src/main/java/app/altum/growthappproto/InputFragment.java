@@ -80,7 +80,7 @@ public class InputFragment extends DialogFragment{
         String childId = getArguments().getString(CHILD_ID);
         child = Realm.getDefaultInstance().where(Child.class).equalTo("name", childId).findFirst();
         //TODO udfyld med barnets navn
-        getDialog().setTitle("Indtast data");
+        getDialog().setTitle("Indtast data for");
 
         return view;
     }
