@@ -57,7 +57,7 @@ public class ChildOverview extends AppCompatActivity {
             childList.add(childToAdd);
             child_grid_Adapter.notifyDataSetChanged();
         }
-        //prepareChildData();
+        prepareChildData();
 
 
 
