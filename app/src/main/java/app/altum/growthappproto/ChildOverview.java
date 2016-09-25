@@ -54,11 +54,12 @@ public class ChildOverview extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(intent.getStringExtra("name") != null){
+/*        if(intent.getStringExtra("name") != null){
             String name = intent.getStringExtra("name");
             String height = intent.getStringExtra("height");
             String weight = intent.getStringExtra("weight");
             String birthday = intent.getStringExtra("birthday");
+            Boolean gender = intent.getBooleanExtra("gender");
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             Date birthdayDate = new Date();
@@ -71,7 +72,7 @@ public class ChildOverview extends AppCompatActivity {
             Child childToAdd = new Child(name, height, weight, birthdayDate);
             childList.add(childToAdd);
             child_grid_Adapter.notifyDataSetChanged();
-        }
+        }*/
 //        prepareChildData();
         loadChildrenFromDB();
 
@@ -97,16 +98,16 @@ public class ChildOverview extends AppCompatActivity {
 
     private void prepareChildData(){
         Date testDate = new Date();
-        Child child = new Child("Steffen", "200", "110", testDate);
+        Child child = new Child("Steffen", "200", "110", testDate, true);
         childList.add(child);
 
-        child = new Child("Hans", "173", "80", testDate);
+        child = new Child("Hans", "173", "80", testDate, true);
         childList.add(child);
 
-        child = new Child("Martin", "150", "92", testDate);
+        child = new Child("Martin", "150", "92", testDate, false);
         childList.add(child);
 
-        child = new Child("Emil", "194", "87", testDate);
+        child = new Child("Emil", "194", "87", testDate, false);
         childList.add(child);
 
         child_grid_Adapter.notifyDataSetChanged();

@@ -5,9 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +25,8 @@ public class AddChild extends AppCompatActivity {
     EditText height;
     EditText weight;
     EditText birthday;
+    Spinner gender;
+
     final Date selectedDate = new Date();
 
     @Override
@@ -33,6 +38,7 @@ public class AddChild extends AppCompatActivity {
         height = (EditText) findViewById(R.id.height);
         weight = (EditText) findViewById(R.id.weight);
         birthday = (EditText) findViewById(R.id.birthday);
+        gender = (Spinner) findViewById(R.id.gender);
 
         Date currDate = new Date(); //update to current date OnCreate
         selectedDate.setDate(currDate.getDate());
@@ -41,10 +47,16 @@ public class AddChild extends AppCompatActivity {
 
         setDatePicker();
 
+        final Spinner gender = (Spinner) findViewById(R.id.gender);
+        String[] genders = new String[] {"Dreng","Pige"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genders);
+        gender.setAdapter(adapter);
+
         Button addChild = (Button) findViewById(R.id.addChildButton);
         addChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Boolean isMan = (gender.getSelectedItem().toString().equals("Dreng"));
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
 
@@ -54,7 +66,7 @@ public class AddChild extends AppCompatActivity {
                     bdayDate = simpleDateFormat.parse(birthday.getText().toString());
                 } catch (ParseException e) { e.printStackTrace(); }
                 Child child = new Child(name.getText().toString(), height.getText().toString(),
-                              weight.getText().toString(), bdayDate);
+                              weight.getText().toString(), bdayDate, isMan);
                 realm.copyToRealm(child);
                 realm.commitTransaction();
                 AddChild.this.finish();

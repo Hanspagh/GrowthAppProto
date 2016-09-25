@@ -60,5 +60,12 @@
             android:id="@+id/birthday"
             android:hint="Fødselsdato" />
 
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gender"
+            android:layout_weight="0.05"
+            android:spinnerMode="dropdown" />
+
     </LinearLayout>
 </RelativeLayout>
