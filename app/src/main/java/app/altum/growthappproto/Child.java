@@ -13,15 +13,17 @@ public class Child extends RealmObject {
     private RealmList<HeightEntry> heightData;
     private RealmList<WeightEntry> weightData;
     private Date birthday;
+    private Boolean isMan;
 
     public Child() {
     }
 
-    public Child(String name, String height, String weight, Date birthday) {
+    public Child(String name, String height, String weight, Date birthday, Boolean isMan) {
         this.name = name;
         this.height = height;
         this.weight = weight;
         this.birthday = birthday;
+        this.isMan = isMan;
     }
 
     public String getName() {
@@ -61,6 +63,14 @@ public class Child extends RealmObject {
 
     public RealmList<HeightEntry> getHeightData() {
         return heightData;
+    }
+
+    public Boolean getMan() {
+        return isMan;
+    }
+
+    public void setMan(Boolean man) {
+        isMan = man;
     }
 
 }
