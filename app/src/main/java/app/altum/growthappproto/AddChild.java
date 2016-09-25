@@ -3,7 +3,9 @@ package app.altum.growthappproto;
 import android.app.DatePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
@@ -33,10 +35,11 @@ public class AddChild extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_child);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         name = (EditText) findViewById(R.id.name);
-        height = (EditText) findViewById(R.id.height);
-        weight = (EditText) findViewById(R.id.weight);
         birthday = (EditText) findViewById(R.id.birthday);
         gender = (Spinner) findViewById(R.id.gender);
 
@@ -49,7 +52,8 @@ public class AddChild extends AppCompatActivity {
 
         final Spinner gender = (Spinner) findViewById(R.id.gender);
         String[] genders = new String[] {"Dreng","Pige"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genders);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item_text, genders);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gender.setAdapter(adapter);
 
         Button addChild = (Button) findViewById(R.id.addChildButton);
@@ -72,7 +76,19 @@ public class AddChild extends AppCompatActivity {
                 AddChild.this.finish();
             }
         });
+
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setDatePicker(){
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

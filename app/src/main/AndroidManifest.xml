@@ -25,7 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddChild"
-                  android:label="Tilføj Barn">
+                  android:label="Tilføj Barn"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

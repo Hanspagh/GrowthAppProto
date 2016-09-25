@@ -96,7 +96,7 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
 
         for (WeightEntry e : child.getWeightData()) {
             Entry newEnrey = new Entry(e.getWeight(), e.getAgeInMonths());
-            if(weightLower.predict(e.getAgeInMonths()) > e.getWeight()) {
+            if (weightLower.predict(e.getAgeInMonths()) > e.getWeight()) {
                 badData.add(newEnrey);
             } else if (weightHigher.predict(e.getAgeInMonths()) < e.getWeight()) {
                 badData.add(newEnrey);
@@ -104,7 +104,6 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
                 goodData.add(newEnrey);
             }
         }
-
 
 
         if (set1 == null) {
@@ -119,6 +118,9 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
         } else {
             set1.clear();
 //            set1.setValues(badData);
+            for (Entry e : badData) {
+                set1.addEntry(e);
+            }
             mChart2.getData().notifyDataChanged();
             mChart2.notifyDataSetChanged();
         }
@@ -135,13 +137,12 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
         } else {
             set3.clear();
 //            set3.setValues(goodData);
+            for (Entry e : goodData) {
+                set3.addEntry(e);
+            }
             mChart2.getData().notifyDataChanged();
             mChart2.notifyDataSetChanged();
         }
-
-
-
-
 
 
         List<Entry> goodData1 = new ArrayList<>();
@@ -150,7 +151,7 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
 
         for (HeightEntry e : child.getHeightData()) {
             Entry newEnrey = new Entry(e.getHeight(), e.getAgeInMonths());
-            if(heightLower.predict(e.getAgeInMonths()) > e.getHeight()) {
+            if (heightLower.predict(e.getAgeInMonths()) > e.getHeight()) {
                 badData1.add(newEnrey);
             } else if (heightHigher.predict(e.getAgeInMonths()) < e.getHeight()) {
                 badData1.add(newEnrey);
@@ -158,7 +159,6 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
                 goodData1.add(newEnrey);
             }
         }
-
 
 
         if (set2 == null) {
@@ -172,7 +172,10 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
             mChart.getLineData().addDataSet(set2);
         } else {
             set2.clear();
-//            set2.setValues(badData1);
+            for (Entry e : badData1) {
+                set2.addEntry(e);
+            }
+//
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         }
@@ -188,7 +191,9 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
             mChart.getLineData().addDataSet(set4);
         } else {
             set4.clear();
-//            set4.setValues(goodData1);
+            for (Entry e : goodData1) {
+                set4.addEntry(e);
+            }
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         }

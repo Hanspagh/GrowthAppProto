@@ -28,7 +28,7 @@
 
             <ImageView
                 android:layout_height="100dp"
-                card_view:srcCompat="@mipmap/ceo"
+                card_view:srcCompat="@mipmap/childimage"
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_alignParentTop="true"
