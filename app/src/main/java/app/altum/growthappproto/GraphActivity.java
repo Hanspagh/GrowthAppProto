@@ -95,7 +95,7 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
 
 
         for (WeightEntry e : child.getWeightData()) {
-            Entry newEnrey = new Entry(e.getAgeInMonths(), e.getWeight());
+            Entry newEnrey = new Entry(e.getWeight(), e.getAgeInMonths());
             if(weightLower.predict(e.getAgeInMonths()) > e.getWeight()) {
                 badData.add(newEnrey);
             } else if (weightHigher.predict(e.getAgeInMonths()) < e.getWeight()) {
@@ -118,7 +118,7 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
             mChart2.getLineData().addDataSet(set1);
         } else {
             set1.clear();
-            set1.setValues(badData);
+//            set1.setValues(badData);
             mChart2.getData().notifyDataChanged();
             mChart2.notifyDataSetChanged();
         }
@@ -134,7 +134,7 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
             mChart2.getLineData().addDataSet(set3);
         } else {
             set3.clear();
-            set3.setValues(goodData);
+//            set3.setValues(goodData);
             mChart2.getData().notifyDataChanged();
             mChart2.notifyDataSetChanged();
         }
@@ -149,7 +149,7 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
 
 
         for (HeightEntry e : child.getHeightData()) {
-            Entry newEnrey = new Entry(e.getAgeInMonths(), e.getHeight());
+            Entry newEnrey = new Entry(e.getHeight(), e.getAgeInMonths());
             if(heightLower.predict(e.getAgeInMonths()) > e.getHeight()) {
                 badData1.add(newEnrey);
             } else if (heightHigher.predict(e.getAgeInMonths()) < e.getHeight()) {
@@ -172,7 +172,7 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
             mChart.getLineData().addDataSet(set2);
         } else {
             set2.clear();
-            set2.setValues(badData1);
+//            set2.setValues(badData1);
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         }
@@ -188,7 +188,7 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
             mChart.getLineData().addDataSet(set4);
         } else {
             set4.clear();
-            set4.setValues(goodData1);
+//            set4.setValues(goodData1);
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         }
@@ -207,7 +207,7 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
         XAxis xAxis = mChart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setDrawLabels(true);
-        xAxis.setCenterAxisLabels(true);
+//        xAxis.setCenterAxisLabels(true);
 
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         mChart.setAutoScaleMinMaxEnabled(true);
@@ -245,12 +245,17 @@ public class GraphActivity extends AppCompatActivity implements InputFragment.My
         heightLower = maleHeightData1.second.first;
         heightHigher = maleHeightData1.second.second;
         LineData maleHeightData = maleHeightData1.first;
+        mChart.getXAxis().setAxisMinValue(24);
+        mChart.getAxisLeft().setAxisMinValue(75);
+
         mChart.setData(maleHeightData);
 
         Pair<LineData, Pair<TrendLine, TrendLine>> maleWeightData = new ChartDataProvider().getMaleWeightData(this, mChart2);
         weightLower = maleWeightData.second.first;
         weightHigher = maleWeightData.second.second;
         LineData maleHeightData2 = maleWeightData.first;
+        mChart2.getXAxis().setAxisMinValue(24);
+        mChart2.getAxisLeft().setAxisMinValue(5);
         mChart2.setData(maleHeightData2);
     }
 

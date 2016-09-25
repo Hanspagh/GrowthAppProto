@@ -43,9 +43,9 @@ public class CsvReader {
                 float z = Float.parseFloat(RowData[2]);
                 float v = Float.parseFloat(RowData[3]);
                 // do something with "data" and "value"
-                lowerEntries.add(new Entry(x, y));
-                avgEntries.add(new Entry(x, z));
-                highEntries.add(new Entry(x, v));
+                lowerEntries.add(new Entry(y, (int) x));
+                avgEntries.add(new Entry(z, (int) x));
+                highEntries.add(new Entry(v, (int) x));
             }
         } catch (IOException ex) {
             // handle exception

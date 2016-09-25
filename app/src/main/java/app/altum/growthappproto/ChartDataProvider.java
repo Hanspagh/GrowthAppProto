@@ -51,8 +51,8 @@ public class ChartDataProvider {
         double[] x = new double[data.size()];
         double[] y = new double[data.size()];
         for(int i = 0; i < data.size() ; i++) {
-            y[i] = data.get(i).getX();
-            x[i] = data.get(i).getY();
+            y[i] = data.get(i).getXIndex();
+            x[i] = data.get(i).getVal();
         }
 
         TrendLine t = new PolyTrendLine(20);
@@ -113,8 +113,13 @@ public class ChartDataProvider {
         dataSets.add(set2);
         dataSets.add(set3);
 
+        ArrayList<String> strings = new ArrayList<>();
+        for(int i = 0; i < yVals1.size(); i++) {
+            strings.add(i + "");
+        }
+
         // create a data object with the datasets
-        LineData data = new LineData(dataSets);
+        LineData data = new LineData(strings , dataSets);
         data.setDrawValues(false);
         return data;
     }
