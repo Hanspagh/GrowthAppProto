@@ -42,14 +42,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Højde"
-            android:inputType="numberSigned" />
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Vægt"
-            android:inputType="numberSigned" />
+            android:inputType="numberDecimal" />
 
         <EditText
             android:layout_width="match_parent"
