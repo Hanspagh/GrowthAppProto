@@ -3,6 +3,7 @@ package app.altum.growthappproto;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
@@ -16,26 +17,47 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.altum.growthappproto.trendslines.PolyTrendLine;
+import app.altum.growthappproto.trendslines.TrendLine;
+
 public class ChartDataProvider {
 
-    public LineData getMaleHeightData(Context context, final LineChart mChart) {
+    public Pair<LineData, Pair<TrendLine, TrendLine>> getMaleHeightData(Context context, final LineChart mChart) {
         List<List<Entry>> maleHeightData = new CsvReader().getMaleHeightData(context);
 
         List<Entry> yVals1 = maleHeightData.get(0);
         List<Entry> yVals2 = maleHeightData.get(1);
         List<Entry> yVals3 = maleHeightData.get(2);
-
-        return getLineData(mChart, yVals1, yVals2, yVals3);
+        TrendLine trendLineLow = getTrendLine(yVals1);
+        TrendLine trendLineHigh = getTrendLine(yVals2);
+        return new Pair<>(getLineData(mChart, yVals1, yVals2, yVals3), new Pair<>(trendLineLow, trendLineHigh));
     }
 
-    public LineData getMaleWeightData(Context context, final LineChart mChart) {
+    public Pair<LineData, Pair<TrendLine, TrendLine>> getMaleWeightData(Context context, final LineChart mChart) {
         List<List<Entry>> maleHeightData = new CsvReader().getMaleWeightData(context);
 
         List<Entry> yVals2 = maleHeightData.get(1);
         List<Entry> yVals3 = maleHeightData.get(2);
         List<Entry> yVals1 = maleHeightData.get(0);
+        TrendLine trendLineLow = getTrendLine(yVals1);
+        TrendLine trendLineHigh = getTrendLine(yVals2);
 
-        return getLineData(mChart, yVals1, yVals2, yVals3);
+        return new Pair<>(getLineData(mChart, yVals1, yVals2, yVals3), new Pair<>(trendLineLow, trendLineHigh));
+    }
+
+
+
+    public TrendLine getTrendLine(List<Entry> data) {
+        double[] x = new double[data.size()];
+        double[] y = new double[data.size()];
+        for(int i = 0; i < data.size() ; i++) {
+            y[i] = data.get(i).getXIndex();
+            x[i] = data.get(i).getVal();
+        }
+
+        TrendLine t = new PolyTrendLine(20);
+        t.setValues(x,y);
+        return t;
     }
 
     @NonNull
@@ -91,8 +113,13 @@ public class ChartDataProvider {
         dataSets.add(set2);
         dataSets.add(set3);
 
+        ArrayList<String> strings = new ArrayList<>();
+        for(int i = 0; i < yVals1.size(); i++) {
+            strings.add(i + "");
+        }
+
         // create a data object with the datasets
-        LineData data = new LineData(dataSets);
+        LineData data = new LineData(strings , dataSets);
         data.setDrawValues(false);
         return data;
     }
