@@ -98,17 +98,17 @@ public class ChildOverview extends AppCompatActivity {
 
     private void prepareChildData(){
         Date testDate = new Date();
-        Child child = new Child("Steffen", "200", "110", testDate, true);
-        childList.add(child);
-
-        child = new Child("Hans", "173", "80", testDate, true);
-        childList.add(child);
-
-        child = new Child("Martin", "150", "92", testDate, false);
-        childList.add(child);
-
-        child = new Child("Emil", "194", "87", testDate, false);
-        childList.add(child);
+//        Child child = new Child("Steffen", "200", "110", testDate, true);
+//        childList.add(child);
+//
+//        child = new Child("Hans", "173", "80", testDate, true);
+//        childList.add(child);
+//
+//        child = new Child("Martin", "150", "92", testDate, false);
+//        childList.add(child);
+//
+//        child = new Child("Emil", "194", "87", testDate, false);
+//        childList.add(child);
 
         child_grid_Adapter.notifyDataSetChanged();
     }

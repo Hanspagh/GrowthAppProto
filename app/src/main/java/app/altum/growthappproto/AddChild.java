@@ -1,13 +1,11 @@
 package app.altum.growthappproto;
 
 import android.app.DatePickerDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,7 +14,6 @@ import android.widget.Spinner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 
 import io.realm.Realm;
@@ -24,8 +21,6 @@ import io.realm.Realm;
 public class AddChild extends AppCompatActivity {
 
     EditText name;
-    EditText height;
-    EditText weight;
     EditText birthday;
     Spinner gender;
 
@@ -51,7 +46,7 @@ public class AddChild extends AppCompatActivity {
         setDatePicker();
 
         final Spinner gender = (Spinner) findViewById(R.id.gender);
-        String[] genders = new String[] {"Dreng","Pige"};
+        String[] genders = new String[]{"Dreng", "Pige"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item_text, genders);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gender.setAdapter(adapter);
@@ -68,9 +63,10 @@ public class AddChild extends AppCompatActivity {
                 Date bdayDate = new Date();
                 try {
                     bdayDate = simpleDateFormat.parse(birthday.getText().toString());
-                } catch (ParseException e) { e.printStackTrace(); }
-                Child child = new Child(name.getText().toString(), height.getText().toString(),
-                              weight.getText().toString(), bdayDate, isMan);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Child child = new Child(name.getText().toString(),bdayDate, isMan);
                 realm.copyToRealm(child);
                 realm.commitTransaction();
                 AddChild.this.finish();
@@ -90,12 +86,12 @@ public class AddChild extends AppCompatActivity {
     }
 
 
-    private void setDatePicker(){
+    private void setDatePicker() {
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                selectedDate.setYear(year-1900);
+                selectedDate.setYear(year - 1900);
                 selectedDate.setMonth(monthOfYear);
                 selectedDate.setDate(dayOfMonth);
                 updateLabel();
@@ -107,7 +103,7 @@ public class AddChild extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(AddChild.this, date,
-                        selectedDate.getYear()+1900, selectedDate.getMonth(),
+                        selectedDate.getYear() + 1900, selectedDate.getMonth(),
                         selectedDate.getDate()).show();
 
             }
